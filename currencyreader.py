@@ -18,7 +18,7 @@ os.path.join(os.getcwd(), 'rates.csv')
 @app.route("/currency", methods=["GET", "POST"])
 def currency():
   if request.method == "POST":
-    data = request.files
+    data = request.form
     code = data.get('code')
     amount = data.get("amount")
     
