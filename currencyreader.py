@@ -15,31 +15,25 @@ import os
 os.path.join(os.getcwd(), 'rates.csv')
 
 
-@app.route("/currency", methods=["GET"])
+@app.route("/currency", methods=["GET", "POST"])
 def currency():
-    return render_template('index.html')
-
-
-@app.route("/amount/", methods=["POST"])
-def result():
   if request.method == "POST":
-    data = request.form
+    data = request.files
     code = data.get('code')
     amount = data.get("amount")
-
+    
 
     if code == code["USD"]:
       return amount*4.2534
-    if code == code[""]:
+    if code == code["AUD"]:
       return amount*3.1916
-    if code == code[]:
+    if code == code["CAD"]:
       return amount*3.1916
-    if code == code[]:
+    if code == code["EUR"]:
       return amount*4.6388
  
-
-  return render_template('amount.html', amount=0)
+  return render_template('index.html', amount=0)
 
 
 if __name__ == "__main__":
-  app.run()
+  app.run(debug=True)
