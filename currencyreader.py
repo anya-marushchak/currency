@@ -9,6 +9,9 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+import json
+
+rates = { 'USD' : 4.2534, 'AUD': 3.0156, 'CAD':3.1916, 'EUR': 4.6388}
 
 @app.route("/currency", methods=["GET", "POST"])
 def currency():
@@ -18,8 +21,8 @@ def currency():
     amount = float(data.get("amount"))
    
 
-    if code in rates.json:
-      return render_template("index.html", amount = amount*rates.json[code])
+    if code in rates:
+      return render_template("index.html", amount = amount*rates[code])
     
  
   return render_template('index.html', amount=0)
