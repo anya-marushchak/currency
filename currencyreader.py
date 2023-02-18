@@ -1,17 +1,21 @@
 
-import requests
+import requests,json
+
 
 response = requests.get("http://api.nbp.pl/api/exchangerates/tables/C?format=json")
 data = response.json()
 
+for item in data:
+   rates = item['rates']
+   print(rates)
+   for item in rates:
+     bid = item['bid']
+     print(bid)
+
+
 from flask import Flask, render_template, request
 
-
 app = Flask(__name__)
-
-import json
-
-rates = { 'USD' : 4.2534, 'AUD': 3.0156, 'CAD':3.1916, 'EUR': 4.6388}
 
 @app.route("/currency", methods=["GET", "POST"])
 def currency():
@@ -20,11 +24,13 @@ def currency():
     code = data.get('code')
     amount = float(data.get("amount"))
    
-
-    if code in rates:
-      return render_template("index.html", amount = amount*rates[code])
     
- 
+    for item in rates:
+        if code == 'USD':
+            return  render_template("index.html", amount = amount*item['bid'])
+        if code == 'AUD':
+            return  render_template("index.html", amount = amount*item['bid'])
+        
   return render_template('index.html', amount=0)
 
 
