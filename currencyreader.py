@@ -1,7 +1,6 @@
 
 import requests,json
 
-
 response = requests.get("http://api.nbp.pl/api/exchangerates/tables/C?format=json")
 data = response.json()
 
@@ -26,13 +25,14 @@ def currency():
    
     
     for item in rates:
-        if code == 'USD':
+        if  code == 'USD' :
             return  render_template("index.html", amount = amount*item['bid'])
         if code == 'AUD':
             return  render_template("index.html", amount = amount*item['bid'])
+
         
   return render_template('index.html', amount=0)
-
+ 
 
 if __name__ == "__main__":
   app.run(debug=True)
